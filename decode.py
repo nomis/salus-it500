@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 import codecs
+import socket
 import sys
 
 import pcapy
+
+hostname = socket.getfqdn()
+udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+udp.connect(("127.0.0.1", 8089))
 
 def decode(data):
 	cmd = (data[0] << 8) | data[1]
@@ -62,8 +67,8 @@ def dump(filename):
 			if data["name"] == "status":
 				#print(hdr.getts(), data["tlv"])
 				ts = hdr.getts()
-				print(f"temperature,location=home,sensor=external:salus,traits=metric:gauge celsius={data['tlv'][0x1b]/100},target:celsius={data['tlv'][0x1c]/100} {ts[0]}{ts[1]:06}000")
-				print(f"boiler,location=home,sensor=external:salus,traits=metric:gauge,salus:ch=power active={data['tlv'][0x1e]} {ts[0]}{ts[1]:06}000")
+				udp.send(f"temperature,location=home,sensor=external:salus,traits=metric:gauge celsius={data['tlv'][0x1b]/100},target:celsius={data['tlv'][0x1c]/100} {ts[0]}{ts[1]:06}000".encode("utf-8"))
+				udp.send(f"boiler,location=home,sensor=external:salus,traits=metric:gauge,salus:ch=power active={data['tlv'][0x1e]} {ts[0]}{ts[1]:06}000".encode("utf-8"))
 
 for filename in sys.argv[1:]:
 	dump(filename)
