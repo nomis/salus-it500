@@ -1,0 +1,12 @@
+Source: salus-it500
+Section: misc
+Priority: optional
+Maintainer: Simon Arlott <ubuntu@sa.me.uk>
+Build-Depends: debhelper (>= 12), libpcap0.8-dev
+Standards-Version: 4.1.4
+
+Package: salus-it500
+Architecture: amd64
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Salus iT500 utilities
+ Applications for handling Salus iT500 wireless thermostats.

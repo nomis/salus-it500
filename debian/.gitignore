@@ -1,0 +1,6 @@
+debhelper-build-stamp
+files
+tmp/
+salus-it500/
+*.substvars
+*.log
