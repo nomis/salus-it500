@@ -189,25 +189,36 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	pcap_t *pcap = pcap_create(argv[1], errbuf.data());
-	if (!pcap) {
-		std::cerr << "pcap_create: " << std::string{errbuf.data(), errbuf.size()} << std::endl;
-		return 1;
-	}
+	pcap_t *pcap;
+	if (argv[1][0] == '/') {
+		pcap = pcap_open_offline(argv[1], errbuf.data());
 
-	if (pcap_set_snaplen(pcap, 1514)) {
-		pcap_perror(pcap, "pcap_set_snaplen");
-		return 1;
-	}
+		if (!pcap) {
+			std::cerr << "pcap_open_offline: " << std::string{errbuf.data(), errbuf.size()} << std::endl;
+			return 1;
+		}
+	} else {
+		pcap =pcap_create(argv[1], errbuf.data());
 
-	if (pcap_set_immediate_mode(pcap, 1)) {
-		pcap_perror(pcap, "pcap_set_immediate_mode");
-		return 1;
-	}
+		if (!pcap) {
+			std::cerr << "pcap_create: " << std::string{errbuf.data(), errbuf.size()} << std::endl;
+			return 1;
+		}
 
-	if (pcap_activate(pcap)) {
-		pcap_perror(pcap, "pcap_activate");
-		return 1;
+		if (pcap_set_snaplen(pcap, 1514)) {
+			pcap_perror(pcap, "pcap_set_snaplen");
+			return 1;
+		}
+
+		if (pcap_set_immediate_mode(pcap, 1)) {
+			pcap_perror(pcap, "pcap_set_immediate_mode");
+			return 1;
+		}
+
+		if (pcap_activate(pcap)) {
+			pcap_perror(pcap, "pcap_activate");
+			return 1;
+		}
 	}
 
 	if (pcap_set_datalink(pcap, DLT_EN10MB)) {
