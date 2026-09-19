@@ -1,3 +1,9 @@
+salus-it500 (2) jammy; urgency=medium
+
+  * Add influxdb script
+
+ -- Simon Arlott <ubuntu@sa.me.uk>  Sat, 19 Sep 2026 22:01:02 +0100
+
 salus-it500 (1) jammy; urgency=medium
 
   * Initial release.

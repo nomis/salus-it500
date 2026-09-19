@@ -14,3 +14,4 @@ clean:
 
 install: salus-pcap
 	$(INSTALL) -m 755 -D salus-pcap $(DESTDIR)$(bindir)/salus-pcap
+	$(INSTALL) -m 755 -D salus-influxdb.py $(DESTDIR)$(bindir)/salus-influxdb
