@@ -126,10 +126,11 @@ class Salus:
 				self.save_state()
 				self.previous_ping_ts = None
 		elif incoming and data["name"] == "ping":
-			if self.previous_ping_ts is not None and "status_data" in self.state:
-				if time.time() - self.state["status_data"][0] < 86400:
-					self.send_status(self.previous_ping_ts, self.state["status_data"][1])
-			self.previous_ping_ts = ts
+			if time.time() - ts < 10:
+				if self.previous_ping_ts is not None and "status_data" in self.state:
+					if time.time() - self.state["status_data"][0] < 86400:
+						self.send_status(self.previous_ping_ts, self.state["status_data"][1])
+				self.previous_ping_ts = ts
 
 	def send_status(self, ts, data):
 		ts = int(ts * 1000000000)

@@ -1,3 +1,9 @@
+salus-it500 (5) jammy; urgency=medium
+
+  * Require pings to be recent too
+
+ -- Simon Arlott <ubuntu@sa.me.uk>  Sun, 20 Sep 2026 11:36:54 +0100
+
 salus-it500 (4) jammy; urgency=medium
 
   * Only repeat status data if it's not out of date
