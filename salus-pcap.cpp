@@ -32,6 +32,7 @@ static struct sockaddr_in dev_addr{};
 static struct sockaddr_in6 dst_addr{};
 
 static int out = -1;
+static bool log = true;
 
 static void log_packet_ts(const struct pcap_pkthdr *h) {
 	std::cout << "# " << std::to_string(h->ts.tv_sec)
@@ -85,7 +86,8 @@ static void recv_packet(u_char *, const struct pcap_pkthdr *h, const u_char *byt
 		for (int i = 0; i < caplen; i++)
 			message << std::setw(2) << (unsigned int)bytes[i];
 
-		syslog(LOG_INFO, "%s", message.str().c_str());
+		if (log)
+			syslog(LOG_INFO, "%s", message.str().c_str());
 
 		std::cout << message.str() << std::endl;
 
@@ -197,8 +199,10 @@ int main(int argc, char *argv[]) {
 			std::cerr << "pcap_open_offline: " << std::string{errbuf.data(), errbuf.size()} << std::endl;
 			return 1;
 		}
+
+		log = false;
 	} else {
-		pcap =pcap_create(argv[1], errbuf.data());
+		pcap = pcap_create(argv[1], errbuf.data());
 
 		if (!pcap) {
 			std::cerr << "pcap_create: " << std::string{errbuf.data(), errbuf.size()} << std::endl;
