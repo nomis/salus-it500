@@ -7,6 +7,6 @@ Standards-Version: 4.1.4
 
 Package: salus-it500
 Architecture: amd64
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends: python3-yaml, ${misc:Depends}, ${shlibs:Depends}
 Description: Salus iT500 utilities
  Applications for handling Salus iT500 wireless thermostats.
