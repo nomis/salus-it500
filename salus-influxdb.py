@@ -119,12 +119,12 @@ class Salus:
 
 		if incoming and data["name"] == "status":
 			print(f"{ts:.6f}", data["tlv"])
+			self.send_status(ts, data)
 			if time.time() - ts < 10:
 			    syslog.syslog(f"{ts:.6f} {data['name']} {data['tlv']}")
-			self.send_status(ts, data)
-			self.state["status_data"] = [ts, data]
-			self.save_state()
-			self.previous_ping_ts = None
+				self.state["status_data"] = [ts, data]
+				self.save_state()
+				self.previous_ping_ts = None
 		elif incoming and data["name"] == "ping":
 			if self.previous_ping_ts is not None and "status_data" in self.state:
 				if time.time() - self.state["status_data"][0] < 86400:

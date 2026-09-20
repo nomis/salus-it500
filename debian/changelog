@@ -1,3 +1,9 @@
+salus-it500 (4) jammy; urgency=medium
+
+  * Only repeat status data if it's not out of date
+
+ -- Simon Arlott <ubuntu@sa.me.uk>  Sun, 20 Sep 2026 11:14:08 +0100
+
 salus-it500 (3) jammy; urgency=medium
 
   * Repeat status data
