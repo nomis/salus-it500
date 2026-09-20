@@ -121,7 +121,7 @@ class Salus:
 			print(f"{ts:.6f}", data["tlv"])
 			self.send_status(ts, data)
 			if time.time() - ts < 10:
-			    syslog.syslog(f"{ts:.6f} {data['name']} {data['tlv']}")
+				syslog.syslog(f"{ts:.6f} {data['name']} {data['tlv']}")
 				self.state["status_data"] = [ts, data]
 				self.save_state()
 				self.previous_ping_ts = None

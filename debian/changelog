@@ -1,3 +1,9 @@
+salus-it500 (6) jammy; urgency=medium
+
+  * Fix indentation
+
+ -- Simon Arlott <ubuntu@sa.me.uk>  Sun, 20 Sep 2026 11:39:45 +0100
+
 salus-it500 (5) jammy; urgency=medium
 
   * Require pings to be recent too
